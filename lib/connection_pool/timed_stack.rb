@@ -1,11 +1,8 @@
+# frozen_string_literal: true
+
 require 'thread'
 require 'timeout'
-
-##
-# Raised when you attempt to retrieve a connection from a pool that has been
-# shut down.
-
-class ConnectionPool::PoolShuttingDownError < RuntimeError; end
+require_relative "pool_shutting_down_error"
 
 ##
 # The TimedStack manages a pool of homogeneous connections (or any resource

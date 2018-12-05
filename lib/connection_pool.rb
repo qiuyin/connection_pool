@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require_relative 'connection_pool/version'
 require_relative 'connection_pool/timed_stack'
-
+require_relative 'connection_pool/distributed_sized_queue'
 
 # Generic connection pool class for e.g. sharing a limited number of network connections
 # among many threads.  Note: Connections are lazily created.
@@ -49,7 +51,7 @@ class ConnectionPool
     @size = Integer(options.fetch(:size))
     @timeout = options.fetch(:timeout)
 
-    @available = TimedStack.new(@size, &block)
+    @available = DistributedSizedQueue.new(@size, &block)
     @key = :"current-#{@available.object_id}"
     @key_count = :"current-#{@available.object_id}-count"
   end
