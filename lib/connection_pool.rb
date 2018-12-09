@@ -51,9 +51,13 @@ class ConnectionPool
     @size = Integer(options.fetch(:size))
     @timeout = options.fetch(:timeout)
 
-    @available = DistributedSizedQueue.new(@size, &block)
+    @available = pool_manager(@size, &block)
     @key = :"current-#{@available.object_id}"
     @key_count = :"current-#{@available.object_id}-count"
+  end
+
+  def pool_manager(size, &block)
+    raise "Please implement me"
   end
 
 if Thread.respond_to?(:handle_interrupt)

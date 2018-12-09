@@ -3,4 +3,7 @@ source "https://rubygems.org"
 gemspec(development_group: :runtime)
 
 gem 'redlock'
-gem 'byebug'
+
+group :test, :development do
+  gem 'byebug'
+end
